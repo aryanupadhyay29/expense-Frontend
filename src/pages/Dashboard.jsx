@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./Dashboard.css"; // Import the CSS file here
 
 export default function Dashboard() {
   const quickActions = [
@@ -16,7 +17,7 @@ export default function Dashboard() {
           <h1 style={{ 
             fontSize: '48px', 
             fontWeight: '800', 
-            background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)',
+            background: 'linear-gradient(135deg, #FF6B6B 0%, #FFD166 100%)', // New gradient
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',
@@ -38,8 +39,7 @@ export default function Dashboard() {
             >
               <div className="card" style={{ 
                 cursor: 'pointer',
-                textAlign: 'center',
-                transition: 'all 0.3s ease'
+                textAlign: 'center'
               }}>
                 <div style={{ 
                   fontSize: '48px', 
