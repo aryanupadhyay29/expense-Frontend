@@ -3,19 +3,20 @@ import API from "../services/api";
 import { useNavigate, Link } from "react-router-dom";
 
 const Register = () => {
-  const [form, setForm] = useState({ username: "", email: "", password: "" });
+  const [form, setForm] = useState({ name: "", email: "", password: "" });
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await API.post("/auth/register", form);
-      alert("Registered successfully!");
-      navigate("/login");
-    } catch {
-      alert("Error registering");
-    }
-  };
+  e.preventDefault();
+  try {
+    await API.post("/auth/register", form);
+    alert("Registered successfully!");
+    navigate("/login");
+  } catch (err) {
+    console.error(err.response?.data || err.message);
+    alert("Error registering: " + (err.response?.data?.message || err.message));
+  }
+};
 
   return (
     <div className="page-container">
@@ -44,8 +45,8 @@ const Register = () => {
               <input 
                 className="form-control" 
                 placeholder="Choose a username"
-                value={form.username}
-                onChange={(e) => setForm({ ...form, username: e.target.value })} 
+                value={form.name}
+                onChange={(e) => setForm({ ...form, name: e.target.value })} 
                 required
               />
             </div>
