@@ -3,33 +3,75 @@ import API from "../services/api";
 
 export default function Profile() {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    API.get("/users/me") // assuming you have an endpoint
-      .then(res => setUser(res.data))
-      .catch(err => console.error(err));
+    async function fetchUser() {
+      try {
+        const response = await API.get("/users/me");
+        setUser(response.data);
+      } catch (err) {
+        console.error("Failed to fetch user data:", err);
+        setError("Could not load your profile. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchUser();
   }, []);
 
-  if (!user) return (
-    <div className="page-container">
-      <div className="container">
-        <div className="card" style={{ textAlign: 'center' }}>
-          <div style={{ fontSize: '48px', marginBottom: '16px' }}>⏳</div>
-          <h2 style={{ color: '#6b7280' }}>Loading...</h2>
+  if (loading) {
+    return (
+      <div className="page-container">
+        <div className="container">
+          <div className="card" style={{ textAlign: 'center' }}>
+            <div style={{ fontSize: '48px', marginBottom: '16px' }}>⏳</div>
+            <h2 style={{ color: '#6b7280' }}>Loading Profile...</h2>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="page-container">
+        <div className="container">
+          <div className="card" style={{ textAlign: 'center' }}>
+            <div style={{ fontSize: '48px', marginBottom: '16px' }}>❌</div>
+            <h2 style={{ color: '#ef4444' }}>Error</h2>
+            <p style={{ color: '#6b7280' }}>{error}</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // If there's no user data after loading, handle it gracefully
+  if (!user) {
+    return (
+      <div className="page-container">
+        <div className="container">
+          <div className="card" style={{ textAlign: 'center' }}>
+            <div style={{ fontSize: '48px', marginBottom: '16px' }}>⚠️</div>
+            <h2 style={{ color: '#fbbf24' }}>No Profile Found</h2>
+            <p style={{ color: '#6b7280' }}>It looks like your profile data is missing.</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="page-container">
       <div className="container">
         <div className="card">
           <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-            <div style={{ 
-              width: '120px', 
-              height: '120px', 
-              borderRadius: '50%', 
+            <div style={{
+              width: '120px',
+              height: '120px',
+              borderRadius: '50%',
               background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)',
               display: 'flex',
               alignItems: 'center',
@@ -47,28 +89,28 @@ export default function Profile() {
               Manage your account settings
             </p>
           </div>
-          
+
           <div style={{ maxWidth: '400px', margin: '0 auto' }}>
             <div className="form-group">
               <label className="form-label">Username</label>
-              <input 
-                className="form-control" 
-                value={user.username} 
+              <input
+                className="form-control"
+                value={user.username}
                 readOnly
                 style={{ backgroundColor: '#f9fafb' }}
               />
             </div>
-            
+
             <div className="form-group">
               <label className="form-label">Email</label>
-              <input 
-                className="form-control" 
-                value={user.email} 
+              <input
+                className="form-control"
+                value={user.email}
                 readOnly
                 style={{ backgroundColor: '#f9fafb' }}
               />
             </div>
-            
+
             <div style={{ display: 'flex', gap: '12px', marginTop: '24px' }}>
               <button className="btn btn-primary" style={{ flex: 1 }}>
                 Edit Profile
