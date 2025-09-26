@@ -1,58 +1,92 @@
+/* --- Global Reset and Page Styling --- */
+
+/* Use a more modern and readable font stack */
+body {
+  font-family: 'Inter', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  color: #1f2937; /* Darker, more professional text color */
+}
+
 .page-container {
-  padding: 64px 24px;
+  padding: 80px 32px; /* Increased padding for more breathing room */
   min-height: 100vh;
-  background-color: #f9fafb;
+  background-color: #f7f9fc; /* A slightly cooler, very light background */
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1300px; /* Slightly wider container for large screens */
   margin: 0 auto;
 }
 
+/* --- Dashboard Grid --- */
+
 .dashboard-grid {
+  /* Retained the excellent auto-fit grid for responsiveness */
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Increased min-width slightly */
+  gap: 32px; /* Increased gap for better separation */
 }
+
+/* --- Card Styling --- */
 
 .card {
   background-color: #ffffff;
-  border-radius: 12px;
-  padding: 32px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 16px; /* Slightly larger radius for a softer look */
+  padding: 40px; /* Increased padding inside the card */
+  /* New, subtler, and layered shadow for depth */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 10px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  border: 1px solid #f0f4f8; /* Very subtle border to define boundaries */
 }
 
 .card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+  transform: translateY(-5px); /* Less dramatic lift, feels smoother */
+  /* More pronounced, but still soft shadow on hover */
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.08);
 }
 
+/* --- Button Styling --- */
+
 .btn {
-  padding: 12px 24px;
-  border-radius: 9999px;
-  font-weight: 600;
-  font-size: 16px;
+  padding: 14px 28px; /* Slightly taller buttons */
+  border-radius: 10px; /* A squarer, more modern radius than full pill */
+  font-weight: 700; /* Bolder font weight */
+  font-size: 15px; /* Slightly smaller size, but punchier */
+  letter-spacing: 0.5px; /* Subtle letter-spacing for clean look */
   text-decoration: none;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+  display: inline-flex; /* Ensures text alignment is perfect and allows icons */
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-out; /* Smooth all transitions */
 }
 
 .btn-primary {
-  background-color: #FF6B6B;
+  /* Updated Primary Color to a more vibrant and modern hue (e.g., a nice Teal or Blue) */
+  --primary-color: #10b981; /* Tailwind 'Emerald-500' - very fresh */
+  background-color: var(--primary-color);
   color: white;
-  border: 1px solid #FF6B6B;
+  border: 1px solid var(--primary-color);
+  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3); /* Shadow to make it "pop" */
 }
 
 .btn-primary:hover {
-  background-color: #e55a5a;
+  background-color: #059669; /* Slightly darker hover state */
+  border-color: #059669;
+  transform: translateY(-1px); /* Subtle lift on hover */
 }
 
 .btn-outline {
+  color: #4b5563; /* Darker text for better contrast */
+  border: 1px solid #e5e7eb; /* Lighter, more elegant border */
   background-color: transparent;
-  color: #6B7280;
-  border: 1px solid #d1d5db;
 }
 
 .btn-outline:hover {
+  background-color: #f9fafb; /* Very subtle background on hover */
+  border-color: #d1d5db; /* Darken the border slightly on hover */
+}
+
+.btn-outline:active {
   background-color: #f3f4f6;
+  transform: translateY(1px); /* Slight press down effect */
 }
